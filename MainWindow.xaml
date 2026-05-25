@@ -1,0 +1,55 @@
+﻿<Window x:Class="filmy.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:filmy"
+        mc:Ignorable="d"
+        Title="Lista filmów - Do obejrzenia" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="300"/>
+            <ColumnDefinition Width="10"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <StackPanel Grid.Column="0" VerticalAlignment="Top">
+            <TextBlock Text="Dodaj film" FontWeight="Bold" Margin="0,0,0,8"/>
+            <TextBlock Text="Tytuł"/>
+            <TextBox Text="{Binding NewTitle, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+            <TextBlock Text="Rok"/>
+            <TextBox Text="{Binding NewYear, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+            <TextBlock Text="Gatunek"/>
+            <TextBox Text="{Binding NewGenre, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+            <Button Content="Dodaj" Command="{Binding AddCommand}" Margin="0,6,0,0"/>
+
+            <Separator Margin="0,12,0,12"/>
+
+            <TextBlock Text="Filtruj" FontWeight="Bold" Margin="0,0,0,8"/>
+            <TextBlock Text="Szukaj (tytuł)"/>
+            <TextBox Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" Margin="0,2,0,8"/>
+            <TextBlock Text="Gatunek"/>
+            <ComboBox ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedGenre}" Margin="0,2,0,8"/>
+            <Button Content="Wyczyść filtr" Command="{Binding ClearFilterCommand}" Margin="0,6,0,0"/>
+        </StackPanel>
+
+        <GridSplitter Grid.Column="1" Width="6" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" />
+
+        <DockPanel Grid.Column="2">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,6">
+                <Button Content="Usuń zaznaczony" Command="{Binding RemoveCommand}" />
+            </StackPanel>
+
+            <ListView ItemsSource="{Binding MoviesView}" SelectedItem="{Binding SelectedMovie}" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="Tytuł" Width="300" DisplayMemberBinding="{Binding Title}" />
+                        <GridViewColumn Header="Rok" Width="60" DisplayMemberBinding="{Binding Year}" />
+                        <GridViewColumn Header="Gatunek" Width="120" DisplayMemberBinding="{Binding Genre}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DockPanel>
+    </Grid>
+</Window>
+
